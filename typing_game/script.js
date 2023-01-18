@@ -26,23 +26,7 @@ const quoteElement = document.getElementById('quote');
 const messageElement = document.getElementById('message');
 const typedValueElement = document.getElementById('typed-value');
 const typingSpeed = (time, length) => Math.round(length / time);
-
-document.getElementById('start').addEventListener('click', () => {
-  wordIndex = 0; //Restart the index everytime the start button is clicked
-  const quoteIndex = Math.floor(Math.random() * quotes.length);
-  const quote = quotes[quoteIndex];
-  words = quote.split(' ');
-  const spanWords = words.map((word) => `<span>${word+' '}</span>`);
-  quoteElement.innerHTML = spanWords.join('');
-  quoteElement.childNodes[0].className = 'highlight';
-  messageElement.innerText = '';
-  typedValueElement.value = '';
-  typedValueElement.focus();
-  
-  startTime = new Date().getTime();
-});
-
-document.getElementById('typed-value').addEventListener('input', () => {
+const typingActions = () => {
   const currentWord = words[wordIndex];
   const typedValue = typedValueElement.value;
   
@@ -50,6 +34,7 @@ document.getElementById('typed-value').addEventListener('input', () => {
     const time_in_minutes = (new Date().getTime() - startTime) / 60000;
     const message = `You've successfully finished typing this quote, welldone! Your typing speed was ${typingSpeed(time_in_minutes, words.length)} wpm.`;
     messageElement.innerText = message;
+    typedValueElement.removeEventListener('input', typingActions);
   } else if(typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
     typedValueElement.value = '';
     wordIndex++;
@@ -62,4 +47,20 @@ document.getElementById('typed-value').addEventListener('input', () => {
   } else {
     typedValueElement.className = 'error';
   }
+}
+
+document.getElementById('start').addEventListener('click', () => {
+  document.getElementById('typed-value').addEventListener('input', typingActions);
+  wordIndex = 0; //Restart the index everytime the start button is clicked
+  const quoteIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[quoteIndex];
+  words = quote.split(' ');
+  const spanWords = words.map((word) => `<span>${word+' '}</span>`);
+  quoteElement.innerHTML = spanWords.join('');
+  quoteElement.childNodes[0].className = 'highlight';
+  messageElement.innerText = '';
+  typedValueElement.value = '';
+  typedValueElement.focus();
+  
+  startTime = new Date().getTime();
 });
