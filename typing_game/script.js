@@ -25,6 +25,7 @@ let startTime = Date.now();
 const quoteElement = document.getElementById('quote');
 const messageElement = document.getElementById('message');
 const typedValueElement = document.getElementById('typed-value');
+const textBoxContent = document.getElementById('typed-value');
 const typingSpeed = (time, length) => Math.round(length / time);
 const typingActions = () => {
   const currentWord = words[wordIndex];
@@ -32,9 +33,12 @@ const typingActions = () => {
   
   if(currentWord === typedValue && wordIndex === words.length - 1) {
     const time_in_minutes = (new Date().getTime() - startTime) / 60000;
-    const message = `You've successfully finished typing this quote, welldone! Your typing speed was ${typingSpeed(time_in_minutes, words.length)} wpm.`;
+    const speed = typingSpeed(time_in_minutes, words.length);
+    if(speed > 80) {
+      localStorage.setItem(`High score at ${new Date().toUTCString()}}`, speed);
+    }
+    const message = `You've successfully finished typing this quote, welldone! Your typing speed was ${speed} wpm.`;
     typedValueElement.removeEventListener('input', typingActions);
-    const textBoxContent = document.getElementById('typed-value');
     textBoxContent.disabled = true;
     textBoxContent.value = '';
     alert(message);
@@ -53,7 +57,8 @@ const typingActions = () => {
 }
 
 document.getElementById('start').addEventListener('click', () => {
-  document.getElementById('typed-value').addEventListener('input', typingActions);
+  textBoxContent.disabled = false;
+  typedValueElement.addEventListener('input', typingActions);
   wordIndex = 0; //Restart the index everytime the start button is clicked
   const quoteIndex = Math.floor(Math.random() * quotes.length);
   const quote = quotes[quoteIndex];
