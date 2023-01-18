@@ -35,6 +35,9 @@ const typingActions = () => {
     const message = `You've successfully finished typing this quote, welldone! Your typing speed was ${typingSpeed(time_in_minutes, words.length)} wpm.`;
     messageElement.innerText = message;
     typedValueElement.removeEventListener('input', typingActions);
+    const textBoxContent = document.getElementById('typed-value');
+    textBoxContent.disabled = true;
+    textBoxContent.value = '';
   } else if(typedValue.endsWith(' ') && typedValue.trim() === currentWord) {
     typedValueElement.value = '';
     wordIndex++;
