@@ -65,7 +65,7 @@ function setUpUser(apiKey, regionName) {
 
 async function displayCarbonUsage(apiKey, region) {
 	try {
-		await axios
+		const response = await axios
 			.get('https://api.co2signal.com/v1/latest', {
 				params: {
 					countryCode: region,
@@ -74,21 +74,30 @@ async function displayCarbonUsage(apiKey, region) {
 					'auth-token': apiKey,
 				},
 			})
-			.then((response) => {
-				let CO2 = Math.floor(response.data.data.carbonIntensity);
+			// .then((response) => {
+			// 	let CO2 = Math.floor(response.data.data.carbonIntensity);
 
-				//calculateColor(CO2);
+			// 	//calculateColor(CO2);
 
-				loading.style.display = 'none';
-				form.style.display = 'none';
-				myregion.textContent = region;
-				usage.textContent =
-					Math.round(response.data.data.carbonIntensity) + ' grams (grams C02 emitted per kilowatt hour)';
-				fossilfuel.textContent =
-					response.data.data.fossilFuelPercentage.toFixed(2) +
-					'% (percentage of fossil fuels used to generate electricity)';
-				results.style.display = 'block';
-			});
+			// 	loading.style.display = 'none';
+			// 	form.style.display = 'none';
+			// 	myregion.textContent = region;
+			// 	usage.textContent =
+			// 		Math.round(response.data.data.carbonIntensity) + ' grams (grams C02 emitted per kilowatt hour)';
+			// 	fossilfuel.textContent =
+			// 		response.data.data.fossilFuelPercentage.toFixed(2) +
+			// 		'% (percentage of fossil fuels used to generate electricity)';
+			// 	results.style.display = 'block';
+			// });
+      loading.style.display = 'none';
+      form.style.display = 'none';
+      myregion.textContent = region;
+      usage.textContent =
+        Math.round(response.data.data.carbonIntensity) + ' grams (grams C02 emitted per kilowatt hour)';
+      fossilfuel.textContent =
+        response.data.data.fossilFuelPercentage.toFixed(2) +
+        '% (percentage of fossil fuels used to generate electricity)';
+      results.style.display = 'block';
 	} catch (error) {
 		console.log(error);
 		loading.style.display = 'none';
