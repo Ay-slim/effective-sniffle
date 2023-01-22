@@ -46,3 +46,18 @@ function reset(e) {
 	localStorage.removeItem('regionName');
 	init();
 }
+
+function handleSubmit(e) {
+	e.preventDefault();
+	setUpUser(apiKey.value, region.value);
+}
+
+function setUpUser(apiKey, regionName) {
+	localStorage.setItem('apiKey', apiKey);
+	localStorage.setItem('regionName', regionName);
+	loading.style.display = 'block';
+	errors.textContent = '';
+	clearBtn.style.display = 'block';
+	//make initial call
+	displayCarbonUsage(apiKey, regionName);
+}
