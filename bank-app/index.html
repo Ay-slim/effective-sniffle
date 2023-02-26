@@ -21,10 +21,10 @@
         <hr/>
         <h2>Register</h2>
         <form id="registerForm" action="javascript:register()">
-          <label for="user">Username</label>
-          <input type="text" id="user" name="user">
-          <label for="currency">Currency</label>
-          <input type="text" id="currency" name="currency" value="$">
+          <label for="user">Username (required)</label>
+          <input type="text" id="user" name="user" maxlength="20" required>
+          <label for="currency">Currency (required)</label>
+          <input type="text" id="currency" name="currency" value="$" maxlength="5" required>
           <label for="description">Description</label>
           <input type="text" id="description" name="description">
           <label for="balance">Balance</label>
