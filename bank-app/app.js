@@ -1,9 +1,17 @@
-function updateRoute(templateId) {
-  const template = document.getElementById(templateId);
+const routes = {
+  '/login': { templateId: 'login' },
+  '/dashboard': { templateId: 'dashboard' },
+};
+
+function updateRoute() {
+  const path = window.location.pathname;
+  const route = routes[path];
+
+  const template = document.getElementById(route.templateId);
   const view = template.content.cloneNode(true);
   const app = document.getElementById('app');
   app.innerHTML = '';
   app.appendChild(view); //skipping the cloining bit and just passing template.content here seems to work just fine
 }
 
-updateRoute('dashboard');
+updateRoute();
