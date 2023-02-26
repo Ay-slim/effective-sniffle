@@ -1,6 +1,7 @@
 const routes = {
   '/login': { templateId: 'login' },
   '/dashboard': { templateId: 'dashboard' },
+  '/credits': { templateId: 'credits' },
 };
 
 function updateRoute() {
