@@ -18,6 +18,7 @@ function updateRoute() {
   app.innerHTML = '';
   app.appendChild(view); //skipping the cloining bit and just passing template.content here seems to work just fine
   document.title = route.title;
+  console.log(`${route.title} is shown`)
 }
 
 function navigate(path) {
