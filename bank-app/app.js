@@ -7,6 +7,10 @@ function updateRoute() {
   const path = window.location.pathname;
   const route = routes[path];
 
+  if (!route) {
+    return navigate('/login');
+  }
+
   const template = document.getElementById(route.templateId);
   const view = template.content.cloneNode(true);
   const app = document.getElementById('app');
@@ -14,4 +18,7 @@ function updateRoute() {
   app.appendChild(view); //skipping the cloining bit and just passing template.content here seems to work just fine
 }
 
-updateRoute();
+function navigate(path) {
+  window.history.pushState({}, path, path);
+  updateRoute();
+}
