@@ -28,4 +28,5 @@ function onLinkClick(event) {
   navigate(event.target.href);
 }
 
+window.onpopstate = () => updateRoute();
 updateRoute();
