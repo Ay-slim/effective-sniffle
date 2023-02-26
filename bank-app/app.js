@@ -1,7 +1,7 @@
 const routes = {
-  '/login': { templateId: 'login' },
-  '/dashboard': { templateId: 'dashboard' },
-  '/credits': { templateId: 'credits' },
+  '/login': { templateId: 'login', title: "Login" },
+  '/dashboard': { templateId: 'dashboard', title: "Dashboard" },
+  '/credits': { templateId: 'credits', title: "Credits" },
 };
 
 function updateRoute() {
@@ -17,6 +17,7 @@ function updateRoute() {
   const app = document.getElementById('app');
   app.innerHTML = '';
   app.appendChild(view); //skipping the cloining bit and just passing template.content here seems to work just fine
+  document.title = route.title;
 }
 
 function navigate(path) {
