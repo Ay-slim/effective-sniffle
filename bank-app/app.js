@@ -22,3 +22,10 @@ function navigate(path) {
   window.history.pushState({}, path, path);
   updateRoute();
 }
+
+function onLinkClick(event) {
+  event.preventDefault();
+  navigate(event.target.href);
+}
+
+updateRoute();
